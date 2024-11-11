@@ -61,12 +61,16 @@ ota:
   - platform: esphome
     password: !secret remote_pass
   - platform: http_request
-    
+
+update:
+  - platform: http_request
+    name: Firmware Update
+    source: ${api_url}   
 
 improv_serial:
 
 dashboard_import:
-  package_import_url: github://tominik83/esp-home-configs/bluetooth-proxy-hub.yaml@main
+  package_import_url: !secret package_url
 
 esp32_ble_tracker:
   scan_parameters:
@@ -84,8 +88,8 @@ button:
     on_press:
       then:
         - ota.http_request.flash:
-            md5_url: https://github.com/tominik83/bluetooth-proxy-hub/raw/refs/heads/main/firmware.md5
-            url: https://github.com/tominik83/bluetooth-proxy-hub/raw/refs/heads/main/firmware.ota.bin
+            md5_url: https://github.com/tominik83/${device_name}/raw/refs/heads/main/firmware.md5
+            url: https://github.com/tominik83/${device_name}/raw/refs/heads/main/firmware.ota.bin
             username: !secret web_user
             password: !secret web_pass
         - logger.log: "This message should not be displayed because the device reboots"

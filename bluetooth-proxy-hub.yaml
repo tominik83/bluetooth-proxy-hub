@@ -30,7 +30,7 @@ wifi:
   fast_connect: true
 
   ap:
-    ssid: "bluetooth-proxy-hub"
+    ssid: "${device_name}"
     password: !secret wifi_pass
 
 captive_portal:
